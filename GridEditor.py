@@ -30,12 +30,37 @@ def draw_grid():#Se define la funcion draw_grid para que se dibujen las celdas d
     for i in range (GRID_SIZE):#Esta linea junto con la linea 31 basicamente lo qeu dicen es que para cada celdita que verifique si esta en true o false.
         for j in range(GRID_SIZE):
             color = "black" if grid_data[i][j] else "white"#Dibuja la celda de negro si es true.
-            canvas.create_rectangle(i * CELL_SIZE, j * CELL_SIZE#crea un rectangulo de largo y ancho igual a CELL_SIZE.
+            canvas.create_rectangle(i * CELL_SIZE, j * CELL_SIZE,#crea un rectangulo de largo y ancho igual a CELL_SIZE.
             (i+1) * CELL_SIZE, (j + 1) * CELL_SIZE,#Establece los bordes del rectangulo.
             fill=color, outline="gray")#Pinta de color gris los bordes.
 
 
 
-#!!!>10/15/24 --> terminar el editor de cuadricula.
+#Esta funcion es para guardar todos los datos de la cuadricula (cuadriculas activadas, desactivadas y etiqueta) como un archivo .json
+def save_grid():
+    label = simpledialog.askstring("Etiqueta", "Introduzca la etiqueta del numero")
+    if label:
+        grid_info = {"grid": grid_data, "label": label}
+        with open (f"grid_{label}.json", "w") as file:
+            json.dump(grid_info, file)
+        root.quit()
+        
 
+
+# Configurar el canvas donde dibujaremos la cuadrícula
+canvas = tk.Canvas(root, width=GRID_SIZE * CELL_SIZE, height=GRID_SIZE * CELL_SIZE)
+canvas.pack()
+
+# Agregar el evento de clic en las celdas
+canvas.bind("<Button-1>", lambda event: toggle_cell(event.x // CELL_SIZE, event.y // CELL_SIZE))
+
+# Dibujar la cuadrícula por primera vez
+draw_grid()
+
+# Asociar la tecla Enter para guardar el archivo
+root.bind("<Return>", lambda event: save_grid())
+
+# Ejecutar la ventana
+root.mainloop()
+            
 
