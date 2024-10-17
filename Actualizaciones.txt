@@ -1,0 +1,3 @@
+### Aqui dejaremos las actualizaciones de lo que hagamos hecho ###
+
+Ck | 10/15/24 --> Empezar con el GridEditor.

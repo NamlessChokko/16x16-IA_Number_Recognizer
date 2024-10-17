@@ -16,7 +16,7 @@ root.title("Editor de cuadricula 16x16")#Este es el nombre de la ventana.
 #Aqui estan los parametros de la cuadricula:
 GRID_SIZE = 16 #Esta variable sera para las dimensiones de la cuadricula.
 CELL_SIZE = 30 #Y esta otra determinara el tamano de cada celda. No se bien que tan grande o pequenas sean, puse 30 solo porque no se me ocurria nada mas.
-grid_data = [[False for_in range(GRID_SIZE)] for _ in range(GRID_SIZE)]
+grid_data = [[False for _ in range(GRID_SIZE)] for _ in range(GRID_SIZE)]
 #En la linea 19 se crea una lista bidimencional, en donde cada elemento de la lista toma de tamano el valor de GRID_SIZE.
 #Cada elemento de la lista podra tener dos valores: true para encendida (negra) y false para apagada (blanca)... Si, lo se, no preguntes... >:(
 
@@ -26,11 +26,16 @@ def toggle_cell (x, y):#Define la funcion con dos parametros los cuales determin
     grid_data[x][y] = not grid_data[x][y]#con los valores x, y de que se le introdujeron a la funcion entonces las celdas con los correspondientes valores cambiara de estado.
     draw_grid()#Dibuja de nuevo la celda
 
-def draw_grid():
-    for i in range (GRID_SIZE):
+def draw_grid():#Se define la funcion draw_grid para que se dibujen las celdas de un color o otro.
+    for i in range (GRID_SIZE):#Esta linea junto con la linea 31 basicamente lo qeu dicen es que para cada celdita que verifique si esta en true o false.
         for j in range(GRID_SIZE):
-            color = "black" if grid_data[i][j] else "white"
-            canvas.create_rectangle(i * CELL_SIZE, j * CELL_SIZE
-            (i+1) * CELL_SIZE, (j + 1) * CELL_SIZE,
-            fill=color, outline="gray")
+            color = "black" if grid_data[i][j] else "white"#Dibuja la celda de negro si es true.
+            canvas.create_rectangle(i * CELL_SIZE, j * CELL_SIZE#crea un rectangulo de largo y ancho igual a CELL_SIZE.
+            (i+1) * CELL_SIZE, (j + 1) * CELL_SIZE,#Establece los bordes del rectangulo.
+            fill=color, outline="gray")#Pinta de color gris los bordes.
+
+
+
+#!!!>10/15/24 --> terminar el editor de cuadricula.
+
 
