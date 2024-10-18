@@ -37,21 +37,42 @@ def draw_grid():
                 fill=color, outline="gray"  # Establece el color de relleno y el contorno.
             )
 
+
+
+
+
 # Función para guardar los datos de la cuadrícula en un archivo JSON
-def save_grid():
+def save_grid(): 
+    
     # Verifica si la carpeta "Grids" existe; si no, la crea
     if not os.path.exists("Grids"):
         os.makedirs("Grids")
 
     # Solicita al usuario la etiqueta para el archivo
     label = simpledialog.askstring("Etiqueta", "Introduzca la etiqueta del número")
+
     if label:  # Asegúrate de que la etiqueta no esté vacía
         grid_info = {"grid": grid_data, "label": label}  # Estructura de datos a guardar
-        # Guarda la información en un archivo JSON dentro de la carpeta "Grids"
-        with open(f"Grids/grid_{label}.json", "w") as file:
+      
+        baseFileName = f"grid_{label}"  # El nombre base permanece fijo
+        fileName = f"Grids/{baseFileName}.json"  # Nombre inicial de archivo
+        counter = 1
+
+        # Bucle para encontrar un nombre de archivo único
+        while os.path.exists(fileName):
+            fileName = f"Grids/{baseFileName}({counter}).json"  # Solo modifica el nombre de archivo con el contador
+            counter += 1
+
+
+        # Guardar la información en un archivo JSON dentro de la carpeta "Grids"
+        with open(fileName, "w") as file:
             json.dump(grid_info, file, indent=4)  # Escribe la estructura de datos en el archivo JSON
 
         root.quit()  # Cierra la aplicación
+
+
+
+
 
 # Configurar el canvas donde dibujaremos la cuadrícula
 canvas = tk.Canvas(root, width=GRID_SIZE * CELL_SIZE, height=GRID_SIZE * CELL_SIZE)
