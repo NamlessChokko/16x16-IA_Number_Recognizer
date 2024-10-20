@@ -13,6 +13,8 @@ class Grid:
         self.grid_data = grid_data if grid_data else [[False for _ in range(16)] for _ in range(16)]
         # Si no se proporcionan datos de cuadrícula, se crea una nueva de 16x16 con todas las celdas apagadas.
 
+
+
     def toggle_cell(self, x, y):
         """
         Cambia el estado de una celda en la grid.
@@ -26,16 +28,16 @@ class Grid:
         Guarda los datos de la grid en un archivo JSON.
         Crea una carpeta 'Grids' si no existe.
         """
-        if not os.path.exists("Grids"):
-            os.makedirs("Grids")  # Crea la carpeta si no existe
+        if not os.path.exists("grid_editor/data/grids"):
+            os.makedirs("grid_editor/data/grids")  # Crea la carpeta si no existe
 
         base_filename = f"grid_{self.label}"  # Nombre del archivo basado en la etiqueta
-        file_path = f"Grids/{base_filename}.json"
+        file_path = f"grid_editor/data/grids/{base_filename}.json"
         counter = 2
 
         # Si el archivo ya existe, busca un nombre único
         while os.path.exists(file_path):
-            file_path = f"Grids/{base_filename}({counter}).json"
+            file_path = f"grid_editor/data/grids/{base_filename}({counter}).json"
             counter += 1
 
         # Guarda los datos en el archivo JSON

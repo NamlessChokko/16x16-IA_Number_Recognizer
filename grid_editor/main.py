@@ -1,16 +1,17 @@
 import tkinter as tk
+from tkinter import filedialog
 from gridEditor import GridEditor  # Importar el editor de grids
 from gridViewer import GridViewer  # Importar el visualizador de grids
 
 # Función para abrir el editor
 def open_editor():
     editor_window = tk.Toplevel(root)  # Crear una nueva ventana
-    GridEditor(editor_window)  # Inicializar el editor en esa ventana
+    GridEditor(editor_window, "")  # Inicializar el editor en esa ventana
 
 # Función para abrir el visualizador
 def open_visualizer():
     visualizer_window = tk.Toplevel(root)  # Crear una nueva ventana
-    GridViewer(visualizer_window)  # Inicializar el visualizador en esa ventana
+    GridViewer(visualizer_window, )  # Inicializar el visualizador en esa ventana
 
 # Crear la ventana principal
 root = tk.Tk()

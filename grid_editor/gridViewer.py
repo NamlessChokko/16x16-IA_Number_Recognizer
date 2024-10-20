@@ -1,39 +1,33 @@
 import tkinter as tk
-from gridObject import Grid
-import json
-import os
+from tkinter import filedialog
+from gridObject import Grid  # Asegúrate de que el Grid esté correctamente importado
 
 class GridViewer:
-    def __init__(self, root):  # El constructor recibe la ventana principal
-        self.root = root
-        self.root.title("Visor de Cuadrículas")
+    def __init__(self, master):
+        self.master = master
+        self.master.title("Grid Viewer")
 
-        # Parámetros de la cuadrícula
-        self.grid_size = 16
-        self.cell_size = 30
-        self.canvas = tk.Canvas(root, width=self.grid_size * self.cell_size, height=self.grid_size * self.cell_size)
+        self.canvas = tk.Canvas(self.master, width=16 * 30, height=16 * 30)
         self.canvas.pack()
 
-        # Botón para cargar una cuadrícula
-        load_button = tk.Button(root, text="Cargar Cuadrícula", command=self.load_grid)
-        load_button.pack()
+        self.load_button = tk.Button(self.master, text="Load Grid", command=self.open_file)
+        self.load_button.pack()
 
-    def draw_grid(self, grid_data):
-        """Dibuja la cuadrícula en la interfaz a partir de los datos"""
-        for i in range(self.grid_size):
-            for j in range(self.grid_size):
-                color = "black" if grid_data[i][j] else "white"
-                self.canvas.create_rectangle(
-                    i * self.cell_size, j * self.cell_size,
-                    (i + 1) * self.cell_size, (j + 1) * self.cell_size,
-                    fill=color, outline="gray"
-                )
-
-    def load_grid(self):
-        """Carga una cuadrícula desde un archivo JSON"""
-        file_path = tk.filedialog.askopenfilename(initialdir="data/grids", title="Seleccionar archivo JSON",
-                                                  filetypes=(("Archivos JSON", "*.json"),))
+    def open_file(self):
+        # Abre el file browser para seleccionar un archivo de cuadrícula
+        file_path = filedialog.askopenfilename(
+            title="Select a grid file",
+            filetypes=(("JSON files", "*.json"), ("All files", "*.*"))
+        )
         if file_path:
-            with open(file_path, "r") as file:
-                grid_data = json.load(file)["grid"]
-                self.draw_grid(grid_data)
+            # Cargar la grid desde el archivo seleccionado
+            grid = Grid.load(file_path)
+            self.display_grid(grid)
+
+    def display_grid(self, grid):
+        # Dibujar la cuadrícula en el canvas
+        self.canvas.delete("all")  # Limpiar cualquier grid anterior
+        for i in range(16):
+            for j in range(16):
+                color = "black" if grid.grid_data[i][j] else "white"
+                self.canvas.create_rectangle(i * 30, j * 30, (i + 1) * 30, (j + 1) * 30, fill=color, outline="gray")
