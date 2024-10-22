@@ -21,8 +21,7 @@ class GridViewer:
         )
         if file_path:
             # Cargar la grid desde el archivo seleccionado
-            grid = Grid.load(file_path)
-            self.display_grid(grid)
+            self.display_grid(Grid.load(file_path))
 
     def display_grid(self, grid):
         # Dibujar la cuadrícula en el canvas
