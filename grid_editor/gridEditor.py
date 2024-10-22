@@ -22,7 +22,7 @@ class GridEditor:
         self.canvas.delete("all")  # Limpia el canvas antes de redibujar
         for i in range(16):
             for j in range(16):
-                color = "black" if self.grid_data.grid_data[i][j] else "white"
+                color = "black" if self.grid_data.grid_data[i][j] == 1 else "white"
                 self.canvas.create_rectangle(i * 30, j * 30, (i + 1) * 30, (j + 1) * 30, fill=color, outline="gray")
 
     def on_canvas_click(self, event):

@@ -28,5 +28,5 @@ class GridViewer:
         self.canvas.delete("all")  # Limpiar cualquier grid anterior
         for i in range(16):
             for j in range(16):
-                color = "black" if grid.grid_data[i][j] else "white"
+                color = "black" if grid.grid_data[i][j] == 1 else "white"
                 self.canvas.create_rectangle(i * 30, j * 30, (i + 1) * 30, (j + 1) * 30, fill=color, outline="gray")

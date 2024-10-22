@@ -10,7 +10,7 @@ class Grid:
         :param grid_data: Datos opcionales para inicializar la grid (lista 2D). Si no se proporciona, se crea una nueva vacía.
         """
         self.label = label  # Asigna la etiqueta a la grid
-        self.grid_data = grid_data if grid_data else [[False for _ in range(16)] for _ in range(16)]
+        self.grid_data = grid_data if grid_data else [[0 for _ in range(16)] for _ in range(16)]
         # Si no se proporcionan datos de cuadrícula, se crea una nueva de 16x16 con todas las celdas apagadas.
 
 
@@ -21,7 +21,7 @@ class Grid:
         :param x: Fila de la celda.
         :param y: Columna de la celda.
         """
-        self.grid_data[x][y] = not self.grid_data[x][y]  # Cambia el estado de la celda (encendida/apagada)
+        self.grid_data[x][y] = 1 if self.grid_data[x][y] == 0 else 0 # Cambia el estado de la celda (encendida/apagada)
 
     def save_to_file(self):
         """
@@ -33,7 +33,7 @@ class Grid:
 
         base_filename = f"grid_{self.label}"  # Nombre del archivo basado en la etiqueta
         file_path = f"grid_editor/data/grids/{base_filename}.json"
-        counter = 2
+        counter = 1
 
         # Si el archivo ya existe, busca un nombre único
         while os.path.exists(file_path):
@@ -67,7 +67,7 @@ class Grid:
 
         for i in range(16):
             for j in range(16):
-                color = "black" if self.grid_data[i][j] else "white"  # Define el color de la celda
+                color = "black" if self.grid_data[i][j] == 1 else "white"  # Define el color de la celda
                 canvas.create_rectangle(i * 30, j * 30, (i + 1) * 30, (j + 1) * 30, fill=color, outline="gray")
 
         root.mainloop()  # Ejecuta la ventana
